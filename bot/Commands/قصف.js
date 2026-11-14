@@ -65,17 +65,6 @@ const NEWSPAPER_2 = `𝐀⃥𝐔̈𝐓҈᪾𝐎̲҇͟ 𝗥̶𝗘̶𝐏⃕𝐋�
 function getDelayForCycle(index) {
   return 57000;
 }
-  const cycleIndex = index % 4;
-  if (cycleIndex === 0) {
-    return 20000 + Math.floor(Math.random() * 3000);
-  } else if (cycleIndex === 1) {
-    return 27000 + Math.floor(Math.random() * 1000);
-  } else if (cycleIndex === 2) {
-    return 31000 + Math.floor(Math.random() * 3000);
-  } else {
-    return 35000;
-  }
-}
 
 function getDefaultTextForCycle(index) {
   const cycleIndex = index % 4;
@@ -174,6 +163,7 @@ async function spamLoop(api, threadID) {
 module.exports = {
   name: "قصف",
   createNewspaperTextProvider,
+  sendTyping,
 
   setNewspaperText(text) {
     return newspaperTextProvider.setNewspaperText(text);
