@@ -1,7 +1,7 @@
 const qasf = require('./قصف');
+const timingStore = require('../timing-store');
 
 const activeGroups = new Map();
-const DELAY_MS = 60 * 1000; // دقيقة كاملة بعد آخر رسالة من أي شخص
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -47,13 +47,17 @@ function scheduleNewspaper(api, event) {
       console.error(`[ماهوراغا] خطأ في إرسال الجريدة:`, error.message || error);
       try { await qasf.sendTyping(api, threadID, false); } catch (e) {}
     }
-  }, DELAY_MS);
+  }, timingStore.get("mahoraga"));
 
   state.timer = timer;
 }
 
 module.exports = {
   name: 'ماهوراغا',
+
+  getDelay() {
+    return timingStore.get("mahoraga");
+  },
 
   async execute(api, event) {
     const threadID = String(event.threadID || '');
